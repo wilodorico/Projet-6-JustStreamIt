@@ -32,11 +32,27 @@ class ApiMoviesServices {
                 throw error;
             });
     }
+
+    async getMovieById(movieId) {
+        try {
+            const response = await fetch(`${this.baseUrl}${movieId}`);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 }
 
 const serviceApi = new ApiMoviesServices('http://localhost:8000/api/v1/titles/');
 
 let bestMovies = serviceApi.getBestMoviesWithImdbAbove9();
 bestMovies.then(data => {
-    console.log("data", data);
+    console.log("bestMovies", data);
+});
+
+let movie = serviceApi.getMovieById(12492650);
+movie.then(data => {
+    console.log("movie", data);
 });
