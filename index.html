@@ -10,18 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 </head>
 <body class="container mx-auto px-14 py-8 max-w-5xl">
-    <header class="flex items-center justify-center bg-header p-2 mb-6 md:justify-start">
+    <header class="flex items-center justify-center bg-header px-4 py-2 mb-6 md:justify-start">
         <img class="w-[127px] h-[94px]" src="medias/logo-juststreamit.png" alt="logo">
-        <h1 class="hidden text-3xl text-white font-light ml-14 md:block">Vidéos à la demande</h1>
+        <h1 class="hidden text-4xl text-white font-light ml-14 md:block">Vidéos à la demande</h1>
     </header>
     <section>
-        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:mb-8">Meilleur film</h2>
+        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8">Meilleur film</h2>
         <div class="flex flex-col border-4 border-black p-2 md:flex-row">
             <div class="flex justify-center">
                 <img class="w-full h-60 object-cover md:w-[441px] lg:object-fill lg:w-[334px]" src="medias/thebig.png" alt="Affiche The Big Lebowski">
             </div>
             <div class="md:px-7">
-                <h3 class="text-2xl font-semibold mt-2 md:text-4xl lg:mb-8">The Big Lebowski</h3>
+                <h3 class="text-2xl font-semibold mt-2 md:text-4xl lg:text-5xl lg:mb-8">The Big Lebowski</h3>
                 <p class="font-thin mb-5 md:text-2xl md:leading-10">Jeff "The Dude" Lebowski, mistaken for a millionaire of the same name, 
                     seeks restitution for his ruined rug and enlists his bowling buddies to help get it.
                 </p>
@@ -32,33 +32,14 @@
         </div>
     </section>
     <section class="mt-5">
-        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:mb-8"">Mystery</h2>
-        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-            <div class="relative">
-                <img class="w-full h-[320px] object-cover" src="/medias/titanic.png" alt="Titanic">
-                <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
-                <div class="absolute top-20 left-0 w-full h-28">
-                    <h4 class="text-white text-2xl font-semibold ml-5 mb-3">Titanic</h4>
-                    <div class="flex justify-end">
-                        <button class="bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">Détails</button>
-                    </div>
-                </div>
-            </div>
-            <div class="relative">
-                <img class="w-full h-[320px] object-cover" src="/medias/backtothefutur.png" alt="Retour vers le futur">
-                <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
-                <div class="absolute top-20 left-0 w-full h-28">
-                    <h4 class="text-white text-2xl font-semibold ml-5 mb-3">Retour vers le futur</h4>
-                    <div class="flex justify-end">
-                        <button class="bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">Détails</button>
-                    </div>
-                </div>
-            </div>
-            
+        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Mystery</h2>
+        <div id="bestMovies" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            <!-- Best Movies will be added here -->
         </div>
         <div id="btn-see-more" class="flex justify-center lg:hidden">
             <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
         </div>
     </section>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
