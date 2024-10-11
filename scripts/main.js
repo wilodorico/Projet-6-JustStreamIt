@@ -4,6 +4,20 @@ const bestMovieDescription = document.getElementById('best-movie-description');
 
 const serviceApi = new ServiceApiMovies('http://localhost:8000/api/v1/');
 
+function addMovieToSection(movie, sectionId) {
+    const template = document.getElementById("movie-template");
+    const clone = template.content.cloneNode(true);
+
+    const movieImage = clone.querySelector('img');
+    movieImage.src = movie.image_url;
+    movieImage.alt = movie.title;
+
+    const movieTitle = clone.querySelector('h4');
+    movieTitle.textContent = movie.title;
+
+    document.getElementById(sectionId).appendChild(clone);
+};
+
 
 serviceApi.getBestMovie()
     .then(movie => {
@@ -17,60 +31,23 @@ serviceApi.getBestMovie()
     })
 
 serviceApi.getBestMoviesWithImdbAbove9()
-    .then(data => {
-        const movies = data;
+    .then(movies => {
         movies.forEach(movie => {
-            const movieElement = document.createElement('div');
-            movieElement.classList.add('relative', 'film');
-            movieElement.innerHTML = `
-                <img class="w-full h-[320px] object-cover" src="${movie.image_url}" alt="${movie.title}">
-                    <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
-                    <div class="absolute top-20 left-0 w-full h-28">
-                        <h4 class="text-white text-2xl font-semibold ml-5 mb-3">${movie.title}</h4>
-                        <div class="flex justify-end">
-                            <button class="bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">Détails</button>
-                        </div>
-                    </div>
-            `;
-            document.getElementById('bestMovies').appendChild(movieElement);
+            addMovieToSection(movie, 'bestMovies');
         });
     });
 
 serviceApi.getBestMoviesByGenre("Thriller")
     .then(movies => {
         movies.forEach(movie => {
-            const movieElement = document.createElement('div');
-            movieElement.classList.add('relative', 'film');
-            movieElement.innerHTML = `
-                <img class="w-full h-[320px] object-cover" src="${movie.image_url}" alt="${movie.title}">
-                    <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
-                    <div class="absolute top-20 left-0 w-full h-28">
-                        <h4 class="text-white text-2xl font-semibold ml-5 mb-3">${movie.title}</h4>
-                        <div class="flex justify-end">
-                            <button class="bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">Détails</button>
-                        </div>
-                    </div>
-            `;
-            document.getElementById('bestMoviesThriller').appendChild(movieElement);
+            addMovieToSection(movie, 'bestMoviesThriller');
         });
     });
 
 serviceApi.getBestMoviesByGenre("Family")
     .then(movies => {
         movies.forEach(movie => {
-            const movieElement = document.createElement('div');
-            movieElement.classList.add('relative', 'film');
-            movieElement.innerHTML = `
-                <img class="w-full h-[320px] object-cover" src="${movie.image_url}" alt="${movie.title}">
-                    <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
-                    <div class="absolute top-20 left-0 w-full h-28">
-                        <h4 class="text-white text-2xl font-semibold ml-5 mb-3">${movie.title}</h4>
-                        <div class="flex justify-end">
-                            <button class="bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">Détails</button>
-                        </div>
-                    </div>
-            `;
-            document.getElementById('bestMoviesFamily').appendChild(movieElement);
+            addMovieToSection(movie, 'bestMoviesFamily');
         });
     });
 

@@ -31,6 +31,19 @@
             </div>
         </div>
     </section>
+    <!-- Template affichage d'un film -->
+    <template id="movie-template">
+        <div class="relative film">
+            <img class="w-full h-[320px] object-cover" src="" alt="">
+            <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
+            <div class="absolute top-20 left-0 w-full h-28">
+                <h4 class="text-white text-2xl font-semibold ml-5 mb-3"></h4>
+                <div class="flex justify-end">
+                    <button class="bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">Détails</button>
+                </div>
+            </div>
+        </div>
+    </template>
     <!-- Section avec les meilleurs films toutes catégories confondues -->
     <section class="mt-5">
         <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs films</h2>
@@ -61,7 +74,6 @@
         </div>
     </section>
     <script src="scripts/services_api_movies.js"></script>
-    <script src="scripts/modal-movie.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>
