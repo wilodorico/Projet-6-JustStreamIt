@@ -1,79 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Just Stream It</title>
-    <link rel="shortcut icon" href="medias/favicon-32x32.png" type="image/x-icon">
-    <link rel="stylesheet" href="dist/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-</head>
-<body class="container mx-auto px-14 py-8 max-w-5xl">
-    <header class="flex items-center justify-center bg-header px-4 py-2 mb-6 md:justify-start">
-        <img class="w-[127px] h-[94px]" src="medias/logo-juststreamit.png" alt="logo">
-        <h1 class="hidden text-4xl text-white font-light ml-14 md:block">Vidéos à la demande</h1>
-    </header>
-    <section>
-        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8">Meilleur film</h2>
-        <div class="flex flex-col border-4 border-black p-2 md:flex-row">
-            <div class="flex justify-center">
-                <img id="best-movie-image" class="w-full h-full object-cover md:w-[441px] lg:object-fill lg:w-[334px]" src="" alt="">
-            </div>
-            <div class="md:px-7">
-                <h3 id="best-movie-title" class="text-2xl font-semibold mt-2 md:text-4xl lg:text-5xl lg:mb-8"></h3>
-                <p id="best-movie-description" class="font-thin mb-5 md:text-2xl md:leading-10">
-                </p>
-                <div class="flex justify-center mt-1 md:justify-end">
-                    <a href="#details" class="text-white font-light bg-red-600 px-6 py-2 rounded-full md:px-8 md:py-2 md:text-xl lg:rounded-2xl lg:px-10 lg:py-3 lg:font-normal">Détails</a>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Just Stream It</title>
+        <link rel="shortcut icon" href="medias/favicon-32x32.png"
+            type="image/x-icon">
+        <link rel="stylesheet" href="dist/main.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+            rel="stylesheet">
+    </head>
+
+    <body class="container mx-auto px-14 py-8 max-w-5xl">
+        <header
+            class="flex items-center justify-center bg-header px-4 py-2 mb-6 md:justify-start">
+            <img class="w-[127px] h-[94px]" src="medias/logo-juststreamit.png"
+                alt="logo">
+            <h1
+                class="hidden text-4xl text-white font-light ml-14 md:block">Vidéos
+                à la demande</h1>
+        </header>
+        <section>
+            <h2
+                class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8">
+                Meilleur film</h2>
+            <div class="flex flex-col border-4 border-black p-2 md:flex-row">
+                <div class="flex justify-center">
+                    <img id="best-movie-image"
+                        class="w-full h-full object-cover md:w-[441px] lg:object-fill lg:w-[334px]"
+                        src alt>
+                </div>
+                <div class="md:px-7">
+                    <h3 id="best-movie-title"
+                        class="text-2xl font-semibold mt-2 md:text-4xl lg:text-5xl lg:mb-8"></h3>
+                    <p id="best-movie-description"
+                        class="font-thin mb-5 md:text-2xl md:leading-10">
+                    </p>
+                    <div class="flex justify-center mt-1 md:justify-end">
+                        <a href="#details"
+                            class="text-white font-light bg-red-600 px-6 py-2 rounded-full md:px-8 md:py-2 md:text-xl lg:rounded-2xl lg:px-10 lg:py-3 lg:font-normal">Détails</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Template affichage d'un film -->
-    <template id="movie-template">
-        <div class="relative film">
-            <img class="w-full h-[320px] object-cover" src="" alt="">
-            <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
-            <div class="absolute top-20 left-0 w-full h-28">
-                <h4 class="text-white text-2xl font-semibold ml-5 mb-3"></h4>
-                <div class="flex justify-end">
-                    <button class="bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">Détails</button>
+        </section>
+        <!-- Template affichage d'un film -->
+        <template id="movie-template">
+            <div class="relative film">
+                <img class="w-full h-[320px] object-cover" src alt>
+                <div
+                    class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
+                <div class="absolute top-20 left-0 w-full h-28">
+                    <h4
+                        class="text-white text-2xl font-semibold ml-5 mb-3"></h4>
+                    <div class="flex justify-end">
+                        <button
+                            class="bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">Détails</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </template>
-    <!-- Section avec les meilleurs films toutes catégories confondues -->
-    <section class="mt-5">
-        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs films</h2>
-        <div id="bestMovies" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-            <!-- Best Movies will be added here -->
-        </div>
-        <div id="btn-see-more" class="flex justify-center lg:hidden">
-            <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
-        </div>
-    </section>
-    <!-- Section avec les meilleurs films Thriller -->
-    <section class="mt-5">
-        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs films Thriller</h2>
-        <div id="bestMoviesThriller" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-            <!-- Best Movies thriller will be added here -->
-        </div>
-        <div id="btn-see-more" class="flex justify-center lg:hidden">
-            <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
-        </div>
-    </section>
-    <section class="mt-5">
-        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs films Famille</h2>
-        <div id="bestMoviesFamily" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-            <!-- Best Movies will be added here -->
-        </div>
-        <div id="btn-see-more" class="flex justify-center lg:hidden">
-            <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
-        </div>
-    </section>
-    <script src="scripts/services_api_movies.js"></script>
-    <script src="scripts/main.js"></script>
-</body>
+        </template>
+        <!-- Section avec les meilleurs films toutes catégories confondues -->
+        <section class="mt-5">
+            <h2
+                class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs
+                films</h2>
+            <div id="bestMovies"
+                class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+                <!-- Best Movies will be added here -->
+            </div>
+            <div id="btn-see-more" class="flex justify-center lg:hidden">
+                <button
+                    class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir
+                    plus</button>
+            </div>
+        </section>
+        <!-- Section meilleurs films Thriller -->
+        <section class="mt-5">
+            <h2
+                class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs
+                films Thriller</h2>
+            <div id="bestMoviesThriller"
+                class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+                <!-- Best Movies thriller will be added here -->
+            </div>
+            <div id="btn-see-more" class="flex justify-center lg:hidden">
+                <button
+                    class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir
+                    plus</button>
+            </div>
+        </section>
+        <section class="mt-5">
+            <h2
+                class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs
+                films Famille</h2>
+            <div id="bestMoviesFamily"
+                class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+                <!-- Best Movies will be added here -->
+            </div>
+            <div id="btn-see-more" class="flex justify-center lg:hidden">
+                <button
+                    class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir
+                    plus</button>
+            </div>
+        </section>
+        <script src="scripts/services_api_movies.js"></script>
+        <script src="scripts/main.js"></script>
+    </body>
+
 </html>

@@ -5,7 +5,7 @@ class ServiceApiMovies {
 
     // Méthode générique pour faire des appels GET à l'API 
     // En précisant le endpoint et les params sont optionnels
-    async get(endpoint, params={}) {
+    async get(endpoint, params = {}) {
         const url = new URL(`${this.baseUrl}${endpoint}`);
         Object.keys(params).forEach(key => {
             url.searchParams.append(key, params[key]);
@@ -22,7 +22,7 @@ class ServiceApiMovies {
         }
     }
 
-    async getMovies(filters={}) {
+    async getMovies(filters = {}) {
         return this.get('titles/', filters);
     }
 
@@ -30,17 +30,21 @@ class ServiceApiMovies {
         return this.get(`titles/${movieId}`);
     }
 
-    async getSixResultsTopMovies(filters={}) {
+    async getSixResultsTopMovies(filters = {}) {
         let topMovies = [];
         const dataFirstPage = await this.getMovies(filters);
-        const dataSecondPage = await this.getMovies(filters, 2);
+        const filtersSecondPage = { ...filters, page: 2 }; // Copie des filtres et ajout de 'page: 2'
+        const dataSecondPage = await this.getMovies(filtersSecondPage);
         topMovies.push(...dataFirstPage.results);
         topMovies.push(...dataSecondPage.results);
-        return topMovies.slice(0, 6);
+
+        let uniqueMovies = this.removeDuplicates(topMovies);
+
+        return uniqueMovies.slice(0, 6);
     }
 
     async getBestMoviesWithImdbAbove9() {
-        return this.getSixResultsTopMovies({imdb_score_min: '9'})
+        return this.getSixResultsTopMovies({ sort_by: '-imdb_score' })
     }
 
     async getBestMovie() {
@@ -67,7 +71,7 @@ class ServiceApiMovies {
         let url = this.baseUrl + 'genres/';
         let nextPage = url;
         let genres = [];
-        while(nextPage){
+        while (nextPage) {
             const response = await fetch(nextPage);
             const data = await response.json();
             genres.push(...data.results);
@@ -77,6 +81,18 @@ class ServiceApiMovies {
     }
 
     async getBestMoviesByGenre(genre) {
-        return this.getSixResultsTopMovies({genre: genre, sort_by: '-imdb_score'})
+        return this.getSixResultsTopMovies({ genre: genre, sort_by: '-imdb_score' })
+    }
+
+    removeDuplicates(movies) {
+        const movieIds = new Set();
+        const uniqueMovies = [];
+        movies.forEach(movie => {
+            if (!movieIds.has(movie.id)) {
+                movieIds.add(movie.id);
+                uniqueMovies.push(movie);
+            }
+        });
+        return uniqueMovies;
     }
 }
