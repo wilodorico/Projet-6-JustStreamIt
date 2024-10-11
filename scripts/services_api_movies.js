@@ -30,21 +30,25 @@ class ServiceApiMovies {
         return this.get(`titles/${movieId}`);
     }
 
-    async getSixResultsTopMovies(filters = {}) {
+    async getResultsTopMovies(filters = {}) {
         let topMovies = [];
-        const dataFirstPage = await this.getMovies(filters);
-        const filtersSecondPage = { ...filters, page: 2 }; // Copie des filtres et ajout de 'page: 2'
-        const dataSecondPage = await this.getMovies(filtersSecondPage);
+        const filtersSortedByImdbScore = { ...filters, sort_by: '-imdb_score' };
+        const dataFirstPage = await this.getMovies(filtersSortedByImdbScore);
         topMovies.push(...dataFirstPage.results);
-        topMovies.push(...dataSecondPage.results);
-
+    
+        if (dataFirstPage.next) {
+            const filtersSecondPage = { ...filters, page: 2 }; // Copie des filtres et ajout de 'page: 2'
+            const dataSecondPage = await this.getMovies(filtersSecondPage);
+            topMovies.push(...dataSecondPage.results);
+        }
+            
         let uniqueMovies = this.removeDuplicates(topMovies);
 
         return uniqueMovies.slice(0, 6);
     }
 
     async getBestMoviesWithImdbAbove9() {
-        return this.getSixResultsTopMovies({ sort_by: '-imdb_score' })
+        return this.getResultsTopMovies({ sort_by: '-imdb_score' })
     }
 
     async getBestMovie() {
@@ -81,7 +85,7 @@ class ServiceApiMovies {
     }
 
     async getBestMoviesByGenre(genre) {
-        return this.getSixResultsTopMovies({ genre: genre, sort_by: '-imdb_score' })
+        return this.getResultsTopMovies({ genre_contains: genre, sort_by: '-imdb_score' })
     }
 
     removeDuplicates(movies) {
