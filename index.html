@@ -19,12 +19,11 @@
         <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8">Meilleur film</h2>
         <div class="flex flex-col border-4 border-black p-2 md:flex-row">
             <div class="flex justify-center">
-                <img class="w-full h-60 object-cover md:w-[441px] lg:object-fill lg:w-[334px]" src="medias/thebig.png" alt="Affiche The Big Lebowski">
+                <img id="best-movie-image" class="w-full h-full object-cover md:w-[441px] lg:object-fill lg:w-[334px]" src="" alt="">
             </div>
             <div class="md:px-7">
-                <h3 class="text-2xl font-semibold mt-2 md:text-4xl lg:text-5xl lg:mb-8">The Big Lebowski</h3>
-                <p class="font-thin mb-5 md:text-2xl md:leading-10">Jeff "The Dude" Lebowski, mistaken for a millionaire of the same name, 
-                    seeks restitution for his ruined rug and enlists his bowling buddies to help get it.
+                <h3 id="best-movie-title" class="text-2xl font-semibold mt-2 md:text-4xl lg:text-5xl lg:mb-8"></h3>
+                <p id="best-movie-description" class="font-thin mb-5 md:text-2xl md:leading-10">
                 </p>
                 <div class="flex justify-center mt-1 md:justify-end">
                     <a href="#details" class="text-white font-light bg-red-600 px-6 py-2 rounded-full md:px-8 md:py-2 md:text-xl lg:rounded-2xl lg:px-10 lg:py-3 lg:font-normal">Détails</a>
@@ -32,8 +31,9 @@
             </div>
         </div>
     </section>
+    <!-- Section avec les meilleurs films toutes catégories confondues -->
     <section class="mt-5">
-        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Mystery</h2>
+        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs films</h2>
         <div id="bestMovies" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             <!-- Best Movies will be added here -->
         </div>
@@ -41,7 +41,27 @@
             <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
         </div>
     </section>
+    <!-- Section avec les meilleurs films Thriller -->
+    <section class="mt-5">
+        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs films Thriller</h2>
+        <div id="bestMoviesThriller" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            <!-- Best Movies thriller will be added here -->
+        </div>
+        <div id="btn-see-more" class="flex justify-center lg:hidden">
+            <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
+        </div>
+    </section>
+    <section class="mt-5">
+        <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs films Famille</h2>
+        <div id="bestMoviesFamily" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            <!-- Best Movies will be added here -->
+        </div>
+        <div id="btn-see-more" class="flex justify-center lg:hidden">
+            <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
+        </div>
+    </section>
     <script src="scripts/services_api_movies.js"></script>
+    <script src="scripts/modal-movie.js"></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>
