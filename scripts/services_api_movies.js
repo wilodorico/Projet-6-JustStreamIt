@@ -17,7 +17,7 @@ class ServiceApiMovies {
             }
             return await response.json();
         } catch (error) {
-            console.error("Erreur lors de l'appel à l\'API", error);
+            console.error("Erreur lors de l'appel à l'API", error);
             throw error;
         }
     }
@@ -26,12 +26,21 @@ class ServiceApiMovies {
         return this.get('titles/', filters);
     }
 
-    async getMovieById(movieId) {
+    async getDetailsMovieById(movieId) {
         return this.get(`titles/${movieId}`);
     }
 
+    async getSixResultsTopMovies(filters={}) {
+        let topMovies = [];
+        const dataFirstPage = await this.getMovies(filters);
+        const dataSecondPage = await this.getMovies(filters, 2);
+        topMovies.push(...dataFirstPage.results);
+        topMovies.push(...dataSecondPage.results);
+        return topMovies.slice(0, 6);
+    }
+
     async getBestMoviesWithImdbAbove9() {
-        return this.getMovies({imdb_score_min: '9'})
+        return this.getSixResultsTopMovies({imdb_score_min: '9'})
     }
 
     async getBestMovie() {
@@ -45,7 +54,7 @@ class ServiceApiMovies {
             const bestScore = movies[0].imdb_score;
             const topMovies = movies.filter(movie => movie.imdb_score === bestScore);
             const bestMovie = topMovies.sort((a, b) => b.votes - a.votes)[0];
-            const completeInfosBestMovie = await this.getMovieById(bestMovie.id);
+            const completeInfosBestMovie = await this.getDetailsMovieById(bestMovie.id);
             return completeInfosBestMovie;
 
         } catch (error) {
@@ -68,38 +77,6 @@ class ServiceApiMovies {
     }
 
     async getBestMoviesByGenre(genre) {
-        return this.getMovies({genre: genre, sort_by: '-imdb_score'})
+        return this.getSixResultsTopMovies({genre: genre, sort_by: '-imdb_score'})
     }
 }
-
-const serviceApi = new ServiceApiMovies('http://localhost:8000/api/v1/');
-
-let getMovies = serviceApi.getMovies();
-getMovies.then(data => {
-    console.log("data", data);
-});
-
-let getMovieById = serviceApi.getMovieById(12492650);
-getMovieById.then(data => {
-    console.log("getMovieById", data);
-});
-
-let getBestMoviesWithImdbAbove9 = serviceApi.getBestMoviesWithImdbAbove9();
-getBestMoviesWithImdbAbove9.then(data => {
-    console.log("getBestMoviesWithImdbAbove9", data);
-});
-
-let getBestMovie = serviceApi.getBestMovie();
-getBestMovie.then(data => {
-    console.log("getBestMovie", data);
-});
-
-let genres = serviceApi.getGenres();
-genres.then(data => {
-    console.log("getGenres", data);
-});
-
-let bestMoviesByGenre = serviceApi.getBestMoviesByGenre("Thriller");
-bestMoviesByGenre.then(data => {
-    console.log("getBestMoviesByGenre", data);
-});
