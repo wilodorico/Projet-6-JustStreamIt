@@ -8,6 +8,19 @@
     }
 }
 
+.hidden {
+    display: none;
+}
+
+#movie-modal {
+    display: none;
+}
+
+#movie-modal.active {
+    display: flex;
+}
+
+
 /* Cacher les films au-delà du nombre souhaité en fonction de la taille de l'écran */
 @media (max-width: 640px) {
     .film:nth-child(n+3) { /* Cache les films 3 à 6 */

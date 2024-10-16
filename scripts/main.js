@@ -1,6 +1,8 @@
 const bestMovieImage = document.getElementById('best-movie-image');
 const bestMovieTitle = document.getElementById('best-movie-title');
 const bestMovieDescription = document.getElementById('best-movie-description');
+const bestMoviesByCategoryChoice = document.getElementById('bestMoviesByCategoryChoice');
+const btnBestMovieDetails = document.getElementById('btn-best-movie-details');
 const selectCategory = document.getElementById('category');
 
 const serviceApi = new ServiceApiMovies('http://localhost:8000/api/v1/');
@@ -23,6 +25,11 @@ function addMovieToSection(movie, sectionId) {
     const movieTitle = clone.querySelector('h4');
     movieTitle.textContent = movie.title;
 
+    const detailsButton = clone.querySelector('button');
+    detailsButton.addEventListener('click', () => {
+        showMovieModal(movie);
+    });
+
     document.getElementById(sectionId).appendChild(clone);
 }
 
@@ -31,10 +38,15 @@ function addMovieToSection(movie, sectionId) {
 function displayBestMovie() {
     serviceApi.getBestMovie()
         .then(movie => {
+            console.log("#bestMovie", movie);
             bestMovieImage.src = movie.image_url;
             bestMovieImage.alt = movie.title;
             bestMovieTitle.innerHTML = movie.title;
             bestMovieDescription.innerHTML = movie.description;
+
+            btnBestMovieDetails.addEventListener('click', () => {
+                showMovieModal(movie);
+            });
         })
         .catch(error => {
             console.error("Erreur lors de la récupération du meilleur film :", error);
@@ -80,12 +92,8 @@ function fillSelectOptionCategory() {
         })
     });
 };
-fillSelectOptionCategory();
 
-// Fonction pour récupérer et afficher les films par catégorie
-// TODO : Voir certaines catégories ne sont pas affichées car bug ou problème de l'API
-const bestMoviesByCategoryChoice = document.getElementById('bestMoviesByCategoryChoice');
-displayMoviesByGenre("Action", "bestMoviesByCategoryChoice");
+fillSelectOptionCategory();
 
 selectCategory.addEventListener("change", (event) => {
     const selectedCategory = event.target.options[event.target.selectedIndex].text;
@@ -93,9 +101,16 @@ selectCategory.addEventListener("change", (event) => {
     console.log('selectedCategory :>> ', selectedCategory);
 })
 
+displayBestMovie();
+displayBestMovies();
+displayMoviesByGenre("Thriller", "bestMoviesThriller");
+displayMoviesByGenre("Family", "bestMoviesFamily");
+displayMoviesByGenre("Action", "bestMoviesByCategoryChoice");
+
+
 
 // Pour voir le format des données
-let getDetailsMovieById = serviceApi.getDetailsMovieById(12492650);
+let getDetailsMovieById = serviceApi.getDetailsMovieById(118715);
 getDetailsMovieById.then(data => {
     console.log("getDetailsMovieById", data);
 });
@@ -116,8 +131,5 @@ bestMoviesByGenre.then(data => {
 });
 
 
-displayBestMovie();
-displayBestMovies();
-displayMoviesByGenre("Thriller", "bestMoviesThriller");
-displayMoviesByGenre("Family", "bestMoviesFamily");
+
 

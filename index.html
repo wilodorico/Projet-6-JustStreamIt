@@ -16,6 +16,62 @@
     </head>
 
     <body class="container mx-auto px-14 py-8 max-w-5xl">
+        <!-- Modale pour afficher les détails d'un film -->
+        <div id="movie-modal"
+            class="fixed inset-0 bg-black bg-opacity-50 active flex justify-center items-center z-50">
+            <div
+                class="bg-white border-4 border-black p-6 w-full max-w-lg relative">
+                <!-- <button id="modal-close-btn"
+                    class="absolute top-2 right-2 bg-red-600 text-white p-2 rounded-full">X</button> -->
+                <div class="flex justify-between">
+                    <div class="modal-movie-infos">
+                        <h2 id="modal-title" class="text-3xl font-bold">The
+                            Big Lebowski</h2>
+                        <p id="modal-year">1998 - Comedy, Crime, Sport</p>
+                        <p class>PG-<span id="modal-movie-rated">13</span> -
+                            <span id="modal-duration">117</span>
+                            minutes (<span id="modal-movie-countries">USA /
+                                UK</span>)</p>
+                        <p class="mb-6">IMDB score: <span
+                                id="modal-score">8.1</span>/10</p>
+                        <p>Réalisé par:</p>
+                        <p class="font-thin">Joel Cohen, Ethan Cohen</p>
+                    </div>
+                    <div class>
+                        <img id="modal-image"
+                            class="w-full h-52 object-cover mb-4"
+                            src="medias/thebig.png"
+                            alt>
+                    </div>
+                </div>
+                <p id="modal-description" class="font-thin mb-6">
+                    When "the dude" Lebowski is mistaken for a millionaire
+                    Lebowski, two thugs urinate on his rug to coerce him into
+                    paying a debt he knows nothing about. While attempting to
+                    gain recompense for the ruined rug from his wealthy
+                    counterpart, he accepts a one-time job with high pay-off. He
+                    enlists the help of his bowling buddy, Walter, a gun-toting
+                    Jewish-convert with anger issues. Deception leads to more
+                    trouble, and it soon seems that everyone from porn empire
+                    tycoons to nihilists want something from The Dude.
+                </p>
+                <div class="mb-8">
+                    <p>Avec:</p>
+                    <p id="modal-actors" class="text-sm font-thin">David
+                        Huddleston, Flea, Jack
+                        Kehler,
+                        Jeff Bridges, Jimmie
+                        Dale Gilmore, John Goodman, John Turturro, Julianne
+                        Moore, Mark Pellegrino, Peter Stormare, Philip Moon,
+                        Philip Seymour Hoffman, Steve Buscemi, Tara Reid,
+                        Torsten Voges</p>
+                </div>
+                <div class="flex justify-center">
+                    <button id="modal-close-btn-down"
+                        class="bg-red-600 text-xs text-white rounded-full px-14 py-1">Fermer</button>
+                </div>
+            </div>
+        </div>
         <header
             class="flex items-center justify-center bg-header px-4 py-2 mb-6 md:justify-start">
             <img class="w-[127px] h-[94px]" src="medias/logo-juststreamit.png"
@@ -41,8 +97,8 @@
                         class="font-thin mb-5 md:text-2xl md:leading-10">
                     </p>
                     <div class="flex justify-center mt-1 md:justify-end">
-                        <a href="#details"
-                            class="text-white font-light bg-red-600 px-6 py-2 rounded-full md:px-8 md:py-2 md:text-xl lg:rounded-2xl lg:px-10 lg:py-3 lg:font-normal">Détails</a>
+                        <button id="btn-best-movie-details"
+                            class="text-white font-light bg-red-600 px-6 py-2 rounded-full md:px-8 md:py-2 md:text-xl lg:rounded-2xl lg:px-10 lg:py-3 lg:font-normal">Détails</button>
                     </div>
                 </div>
             </div>
@@ -64,7 +120,7 @@
             </div>
         </template>
         <!-- Section meilleurs films toutes catégories confondues -->
-        <section class="mt-5">
+        <section class="mt-10">
             <h2
                 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs
                 films</h2>
@@ -79,7 +135,7 @@
             </div>
         </section>
         <!-- Section meilleurs films Thriller -->
-        <section class="mt-5">
+        <section class="mt-10">
             <h2
                 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs
                 films Thriller</h2>
@@ -94,7 +150,7 @@
             </div>
         </section>
         <!-- Section meilleurs films Famille -->
-        <section class="mt-5">
+        <section class="mt-10">
             <h2
                 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Meilleurs
                 films Famille</h2>
@@ -108,13 +164,17 @@
                     plus</button>
             </div>
         </section>
-        <section class="mt-5">
-            <h2
-                class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8"">Autres:
-            </h2>
-            <select name="category" id="category">
-
-            </select>
+        <!-- Section meilleurs films aux choix de la catégorie -->
+        <section class="mt-10">
+            <div
+                class="flex justify-center items-end mb-2 md:mb-4 md:justify-start lg:mb-8">
+                <h2
+                    class="hidden text-2xl font-semibold text-center md:block md:text-4xl md:text-start lg:text-5xl">Autres:
+                </h2>
+                <select name="category" id="category"
+                    class="px-8 py-2 mx-3 rounded-lg border-2 border-black">
+                </select>
+            </div>
             <div id="bestMoviesByCategoryChoice"
                 class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
                 <!-- Best Movies will be added here -->
@@ -125,7 +185,8 @@
                     plus</button>
             </div>
         </section>
-        <script src="scripts/services_api_movies.js"></script>
+        <script src="scripts/servicesApiMovies.js"></script>
+        <script src="scripts/modalDetailsMovie.js"></script>
         <script src="scripts/main.js"></script>
     </body>
 
