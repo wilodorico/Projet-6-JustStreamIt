@@ -32,8 +32,7 @@ class ServiceApiMovies {
 
     async getResultsTopMovies(filters = {}) {
         let topMovies = [];
-        const filtersSortedByImdbScore = { ...filters, sort_by: '-imdb_score' };
-        const dataFirstPage = await this.getMovies(filtersSortedByImdbScore);
+        const dataFirstPage = await this.getMovies({ ...filters });
         topMovies.push(...dataFirstPage.results);
     
         if (dataFirstPage.next) {
@@ -44,10 +43,19 @@ class ServiceApiMovies {
             
         let uniqueMovies = this.removeDuplicates(topMovies);
 
-        return uniqueMovies.slice(0, 6);
+        const detailedMovies = await this.getDetailsForMovies(uniqueMovies.slice(0, 6))
+
+        return detailedMovies;
     }
 
-    async getBestMoviesWithImdbAbove9() {
+    // Méthode pour récupérer les détails des films
+    async getDetailsForMovies(movies) {
+        const detailedMoviesPromises = movies.map(movie => this.getDetailsMovieById(movie.id));
+        const detailedMovies = await Promise.all(detailedMoviesPromises);
+        return detailedMovies;
+    }
+
+    async getBestMoviesWithImdbScore() {
         return this.getResultsTopMovies({ sort_by: '-imdb_score' })
     }
 
