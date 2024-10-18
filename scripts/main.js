@@ -55,7 +55,7 @@ function displayBestMovie() {
 
 // Fonction pour récupérer et afficher les films les mieux notés
 function displayBestMovies() {
-    serviceApi.getBestMoviesWithImdbAbove9()
+    serviceApi.getBestMoviesWithImdbScore()
         .then(movies => {
             movies.forEach(movie => {
                 addMovieToSection(movie, 'bestMovies');
@@ -98,7 +98,6 @@ fillSelectOptionCategory();
 selectCategory.addEventListener("change", (event) => {
     const selectedCategory = event.target.options[event.target.selectedIndex].text;
     displayMoviesByGenre(selectedCategory, "bestMoviesByCategoryChoice");
-    console.log('selectedCategory :>> ', selectedCategory);
 })
 
 displayBestMovie();
@@ -115,7 +114,7 @@ getDetailsMovieById.then(data => {
     console.log("getDetailsMovieById", data);
 });
 
-let getBestMoviesWithImdbAbove9 = serviceApi.getBestMoviesWithImdbAbove9();
+let getBestMoviesWithImdbAbove9 = serviceApi.getBestMoviesWithImdbScore();
 getBestMoviesWithImdbAbove9.then(data => {
     console.log("getBestMoviesWithImdbAbove9", data);
 });
