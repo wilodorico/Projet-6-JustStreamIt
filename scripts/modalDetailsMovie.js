@@ -1,52 +1,42 @@
 // Fonction pour afficher la modale avec les détails d'un film
 function showMovieModal(movie) {
     const modal = document.getElementById("movie-modal");
-    const modalTitle = document.getElementById("modal-title");
-    const modalImageDesktop = document.getElementById("modal-image-desktop");
-    const modalImageSmallScreen = document.getElementById("modal-image-small-screen");
-    const modalMovieYear = document.getElementById("modal-movie-year");
-    const modalMovieGenre = document.getElementById("modal-movie-genre");
-    const modalMovieRated = document.getElementById("modal-movie-rated");
-    const modalMovieDuration = document.getElementById("modal-movie-duration");
-    const modalMovieCountries = document.getElementById("modal-movie-countries");
-    const modalIMDBScore = document.getElementById("modal-score");
-    const modalMovieWriters = document.getElementById("modal-movie-writers");
-    const modalDescription = document.getElementById("modal-description");
-    const modalActors = document.getElementById("modal-actors");
-    const defaultImage = "medias/no-image.jpg";
 
     // Remplir la modale avec les informations du film
-    modalTitle.textContent = movie.title;
-    modalMovieYear.textContent = movie.year;
-    modalMovieGenre.textContent = movie.genres.join(", ");
-    modalMovieRated.textContent = Number.parseFloat(movie.rated) ? movie.rated : "NR";
-    modalMovieDuration.textContent = movie.duration;
-    modalMovieCountries.textContent = movie.countries.join(" / ");
-    modalIMDBScore.textContent = movie.imdb_score;
-
-    modalImageDesktop.src = movie.image_url;
-    modalImageDesktop.onerror = () => (modalImageDesktop.src = defaultImage);
-    modalImageDesktop.alt = movie.title;
-
-    modalImageSmallScreen.src = movie.image_url;
-    modalImageSmallScreen.onerror = () => (modalImageSmallScreen.src = defaultImage);
-    modalImageSmallScreen.alt = movie.title;
-
-    modalMovieWriters.textContent = movie.writers[0] !== "Unknown" ? movie.writers.join(", ") : "Non renseigné";
-    modalDescription.textContent =
+    document.getElementById("modal-title").textContent = movie.title;
+    document.getElementById("modal-movie-year").textContent = movie.year;
+    document.getElementById("modal-movie-genre").textContent = movie.genres.join(", ");
+    document.getElementById("modal-movie-rated").textContent = Number.parseFloat(movie.rated) ? movie.rated : "NR";
+    document.getElementById("modal-movie-duration").textContent = movie.duration;
+    document.getElementById("modal-movie-countries").textContent = movie.countries.join(" / ");
+    document.getElementById("modal-score").textContent = movie.imdb_score;
+    document.getElementById("modal-movie-writers").textContent =
+        movie.writers[0] !== "Unknown" ? movie.writers.join(", ") : "Non renseigné";
+    document.getElementById("modal-description").textContent =
         movie.long_description == "|" ? "Description non renseignée" : movie.long_description;
+    document.getElementById("modal-actors").textContent =
+        movie.actors[0] !== "Unknown" ? movie.actors.join(", ") : "Non renseigné";
 
-    modalActors.textContent = movie.actors.join(", ");
+    // Gestion des images
+    setImage(document.getElementById("modal-image-desktop"), movie.image_url, movie.title);
+    setImage(document.getElementById("modal-image-small-screen"), movie.image_url, movie.title);
 
     // Afficher la modale
     modal.classList.add("active");
 }
 
-// Fermer la modale
-document.querySelector(".modal-btn-close-up").addEventListener("click", () => {
-    document.getElementById("movie-modal").classList.remove("active");
-});
+// Fonction pour définir une image avec un fallback en cas d'erreur
+function setImage(imageElement, imageUrl, altText) {
+    const defaultImage = "medias/no-image.jpg";
+    imageElement.src = imageUrl;
+    imageElement.onerror = () => (imageElement.src = defaultImage);
+    imageElement.alt = altText;
+}
 
-document.querySelector(".modal-btn-close-down").addEventListener("click", () => {
+function closeModal() {
     document.getElementById("movie-modal").classList.remove("active");
+}
+
+document.querySelectorAll(".modal-btn-close-up, .modal-btn-close-down").forEach((button) => {
+    button.addEventListener("click", closeModal);
 });

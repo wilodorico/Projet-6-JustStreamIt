@@ -705,6 +705,9 @@ video {
 .max-w-\[340px\] {
   max-width: 340px;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
 .flex-col {
   flex-direction: column;
 }

@@ -27,8 +27,8 @@ function addMovieToSection(movie, sectionId) {
     const movieTitle = clone.querySelector("h4");
     movieTitle.textContent = movie.title;
 
-    const detailsButton = clone.querySelector("button");
-    detailsButton.addEventListener("click", () => {
+    const divLink = clone.querySelector("#movie-template-link");
+    divLink.addEventListener("click", () => {
         showMovieModal(movie);
     });
 
@@ -55,22 +55,8 @@ function displayBestMovie() {
         });
 }
 
-// Fonction pour récupérer et afficher les films les mieux notés
-function displayBestMovies() {
-    serviceApi
-        .getBestMoviesWithImdbScore()
-        .then((movies) => {
-            movies.forEach((movie) => {
-                addMovieToSection(movie, "bestMovies");
-            });
-        })
-        .catch((error) => {
-            console.error("Erreur lors de la récupération des meilleurs films :", error);
-        });
-}
-
-// Fonction pour récupérer et afficher les films par genre
-function displayMoviesByGenre(genre, sectionId) {
+// Fonction pour récupérer les meilleurs films avec option filtre par genre
+function displayBestMovies(genre, sectionId) {
     clearSection(sectionId);
     serviceApi
         .getBestMoviesByGenre(genre)
@@ -90,41 +76,19 @@ function fillSelectOptionCategory() {
             const option = document.createElement("option");
             option.value = categorie.id;
             option.text = categorie.name;
-            selectCategory.add(option, null);
+            selectCategory.add(option);
         });
     });
 }
 
 selectCategory.addEventListener("change", (event) => {
     const selectedCategory = event.target.options[event.target.selectedIndex].text;
-    displayMoviesByGenre(selectedCategory, "bestMoviesByCategoryChoice");
+    displayBestMovies(selectedCategory, "bestMoviesByCategoryChoice");
 });
 
 fillSelectOptionCategory();
 displayBestMovie();
-displayBestMovies();
-displayMoviesByGenre("Thriller", "bestMoviesThriller");
-displayMoviesByGenre("Family", "bestMoviesFamily");
-displayMoviesByGenre("Action", "bestMoviesByCategoryChoice");
-
-// Pour voir le format des données
-// let getDetailsMovieById = serviceApi.getDetailsMovieById(5354160);
-// getDetailsMovieById.then((data) => {
-//     console.log("getDetailsMovieById", data);
-//     console.log("image_url", data.image_url);
-// });
-
-// let getBestMoviesWithImdbAbove9 = serviceApi.getBestMoviesWithImdbScore();
-// getBestMoviesWithImdbAbove9.then((data) => {
-//     console.log("getBestMoviesWithImdbAbove9", data);
-// });
-
-// let genres = serviceApi.getGenres();
-// genres.then((data) => {
-//     console.log("getGenres", data);
-// });
-
-// let bestMoviesByGenre = serviceApi.getBestMoviesByGenre("Action");
-// bestMoviesByGenre.then((data) => {
-//     console.log("getBestMoviesByGenre", data);
-// });
+displayBestMovies("", "bestMovies");
+displayBestMovies("Thriller", "bestMoviesThriller");
+displayBestMovies("Family", "bestMoviesFamily");
+displayBestMovies("Action", "bestMoviesByCategoryChoice");

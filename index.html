@@ -84,7 +84,7 @@
     </section>
     <!-- Template affichage d'un film -->
     <template id="movie-template">
-        <div class="relative film">
+        <div id="movie-template-link" class="relative film cursor-pointer">
             <img class="w-full h-[320px] object-cover" src="" alt="">
             <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
             <div class="absolute top-20 left-0 w-full h-28">
@@ -105,8 +105,10 @@
         <div id="bestMovies" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             <!-- Best Movies will be added here -->
         </div>
-        <div id="btn-see-more" class="flex justify-center lg:hidden">
-            <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
+        <div class="flex justify-center lg:hidden">
+            <button id="btn-see-more" class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">
+                Voir plus
+            </button>
         </div>
     </section>
     <!-- Section meilleurs films Thriller -->
