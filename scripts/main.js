@@ -4,7 +4,7 @@ const bestMovieDescription = document.getElementById("best-movie-description");
 const bestMoviesByCategoryChoice = document.getElementById("bestMoviesByCategoryChoice");
 const btnBestMovieDetails = document.getElementById("btn-best-movie-details");
 const selectCategory = document.getElementById("category");
-const defaultImageUrl = "medias/no-image-2.jpg";
+const defaultImageUrl = "medias/no-image.jpg";
 
 const serviceApi = new ServiceApiMovies("http://localhost:8000/api/v1/");
 

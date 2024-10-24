@@ -15,11 +15,13 @@
 <body class="container mx-auto px-14 py-8 max-w-5xl">
     <!-- Modale pour afficher les détails d'un film -->
     <div id="movie-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 justify-center items-center z-50">
-        <div class="bg-white border-4 border-black p-6 w-full max-w-lg relative">
-            <!-- <button id="modal-close-btn" class="absolute top-2 right-2 text-red-600 p-2">X</button> -->
+        <div class="max-w-[340px] bg-white border-4 border-black p-6 w-full lg:max-w-lg relative">
+            <button class="modal-btn-close-up absolute top-2 right-2 text-red-600 text-xl font-extrabold p-2 lg:hidden">
+                &#x2716;
+            </button>
             <div class="flex justify-between">
                 <div class="modal-movie-infos">
-                    <h2 id="modal-title" class="text-3xl font-bold"></h2>
+                    <h2 id="modal-title" class="text-2xl font-bold lg:text-3xl"></h2>
                     <p>
                         <span id="modal-movie-year"></span> -
                         <span id="modal-movie-genre"></span>
@@ -31,19 +33,25 @@
                     </p>
                     <p class="mb-6">IMDB score: <span id="modal-score"></span>/10</p>
                     <p>Réalisé par:</p>
-                    <p id="modal-movie-writers" class="font-thin"></p>
+                    <p id="modal-movie-writers" class="font-thin mb-3"></p>
                 </div>
-                <div class="">
-                    <img id="modal-image" class="w-full h-52 object-cover mb-4" src="medias/thebig.png" alt="">
+                <div class="hidden lg:block">
+                    <img id="modal-image-desktop" class="w-full h-52 object-cover mb-4" src="" alt="">
                 </div>
             </div>
-            <p id="modal-description" class="font-thin mb-6"></p>
-            <div class="mb-8">
+            <div class="max-h-36 overflow-y-auto mb-4 lg:overflow-visible lg:max-h-none">
+                <p id="modal-description" class="font-thin"></p>
+            </div>
+            <div class="lg:hidden flex justify-center">
+                <img id="modal-image-small-screen" class="object-cover" src="" alt="">
+            </div>
+            <div class="lg:mb-8">
                 <p>Avec:</p>
                 <p id="modal-actors" class="text-sm font-thin"></p>
             </div>
             <div class="flex justify-center">
-                <button id="modal-close-btn-down" class="bg-red-600 text-xs text-white rounded-full px-14 py-1">
+                <button
+                    class="modal-btn-close-down hidden bg-red-600 text-xs text-white rounded-full px-14 py-1 lg:block">
                     Fermer
                 </button>
             </div>
@@ -81,8 +89,10 @@
             <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
             <div class="absolute top-20 left-0 w-full h-28">
                 <h4 class="text-white text-2xl font-semibold ml-5 mb-3"></h4>
-                <div class="flex justify-end">
-                    <button class="bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">Détails</button>
+                <div class="w-full flex justify-end">
+                    <button class="absolute top-11 bg-zinc-800 text-white font-medium rounded-full px-6 py-1 mr-3">
+                        Détails
+                    </button>
                 </div>
             </div>
         </div>

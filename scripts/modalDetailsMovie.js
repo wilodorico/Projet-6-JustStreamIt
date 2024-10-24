@@ -2,7 +2,8 @@
 function showMovieModal(movie) {
     const modal = document.getElementById("movie-modal");
     const modalTitle = document.getElementById("modal-title");
-    const modalImage = document.getElementById("modal-image");
+    const modalImageDesktop = document.getElementById("modal-image-desktop");
+    const modalImageSmallScreen = document.getElementById("modal-image-small-screen");
     const modalMovieYear = document.getElementById("modal-movie-year");
     const modalMovieGenre = document.getElementById("modal-movie-genre");
     const modalMovieRated = document.getElementById("modal-movie-rated");
@@ -12,6 +13,7 @@ function showMovieModal(movie) {
     const modalMovieWriters = document.getElementById("modal-movie-writers");
     const modalDescription = document.getElementById("modal-description");
     const modalActors = document.getElementById("modal-actors");
+    const defaultImage = "medias/no-image.jpg";
 
     // Remplir la modale avec les informations du film
     modalTitle.textContent = movie.title;
@@ -22,9 +24,14 @@ function showMovieModal(movie) {
     modalMovieCountries.textContent = movie.countries.join(" / ");
     modalIMDBScore.textContent = movie.imdb_score;
 
-    modalImage.src = movie.image_url;
-    modalImage.onerror = () => (modalImage.src = "medias/no-image-2.jpg");
-    modalImage.alt = movie.title;
+    modalImageDesktop.src = movie.image_url;
+    modalImageDesktop.onerror = () => (modalImageDesktop.src = defaultImage);
+    modalImageDesktop.alt = movie.title;
+
+    modalImageSmallScreen.src = movie.image_url;
+    modalImageSmallScreen.onerror = () => (modalImageSmallScreen.src = defaultImage);
+    modalImageSmallScreen.alt = movie.title;
+
     modalMovieWriters.textContent = movie.writers[0] !== "Unknown" ? movie.writers.join(", ") : "Non renseigné";
     modalDescription.textContent =
         movie.long_description == "|" ? "Description non renseignée" : movie.long_description;
@@ -36,6 +43,10 @@ function showMovieModal(movie) {
 }
 
 // Fermer la modale
-document.getElementById("modal-close-btn-down").addEventListener("click", () => {
+document.querySelector(".modal-btn-close-up").addEventListener("click", () => {
+    document.getElementById("movie-modal").classList.remove("active");
+});
+
+document.querySelector(".modal-btn-close-down").addEventListener("click", () => {
     document.getElementById("movie-modal").classList.remove("active");
 });
