@@ -8,32 +8,10 @@
     }
 }
 
-.hidden {
-    display: none;
-}
-
 #movie-modal {
     display: none;
 }
 
 #movie-modal.active {
     display: flex;
-}
-
-
-/* Cacher les films au-delà du nombre souhaité en fonction de la taille de l'écran */
-@media (max-width: 640px) {
-    .film:nth-child(n+3) { /* Cache les films 3 à 6 */
-        display: none;
-    }
-}
-@media (min-width: 641px) and (max-width: 1024px) {
-    .film:nth-child(n+5) { /* Cache les films 5 et 6 */
-        display: none;
-    }
-}
-@media (min-width: 1025px) {
-    .film {
-        display: block; /* Affiche tous les films */
-    }
 }

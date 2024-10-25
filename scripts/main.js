@@ -27,7 +27,7 @@ function addMovieToSection(movie, sectionId) {
     const movieTitle = clone.querySelector("h4");
     movieTitle.textContent = movie.title;
 
-    const divLink = clone.querySelector("#movie-template-link");
+    const divLink = clone.querySelector(".movie-template-link");
     divLink.addEventListener("click", () => {
         showMovieModal(movie);
     });
@@ -64,6 +64,7 @@ function displayBestMovies(genre, sectionId) {
             movies.forEach((movie) => {
                 addMovieToSection(movie, sectionId);
             });
+            adjustMovieGrid(); // Ajuster le nombre de films visibles
         })
         .catch((error) => {
             console.error(`Erreur lors de la récupération des films ${genre} :`, error);
@@ -84,11 +85,76 @@ function fillSelectOptionCategory() {
 selectCategory.addEventListener("change", (event) => {
     const selectedCategory = event.target.options[event.target.selectedIndex].text;
     displayBestMovies(selectedCategory, "bestMoviesByCategoryChoice");
+    adjustMovieGrid();
 });
 
-fillSelectOptionCategory();
-displayBestMovie();
-displayBestMovies("", "bestMovies");
-displayBestMovies("Thriller", "bestMoviesThriller");
-displayBestMovies("Family", "bestMoviesFamily");
-displayBestMovies("Action", "bestMoviesByCategoryChoice");
+// Fonction pour ajuster le nombre de films visibles sous 640px
+function adjustMovieGrid() {
+    const grids = document.querySelectorAll(".grid-movies");
+
+    grids.forEach((grid) => {
+        const movies = Array.from(grid.children);
+        const btnToggle = grid.nextElementSibling.firstElementChild;
+
+        if (window.innerWidth < 768) {
+            // Masquer tous les films après les deux premiers
+            movies.forEach((movie, index) => {
+                if (index < 2) {
+                    movie.classList.remove("hidden");
+                } else {
+                    movie.classList.add("hidden");
+                }
+            });
+        } else if (window.innerWidth < 1024) {
+            // Masquer tous les films après les quatre premiers
+            movies.forEach((movie, index) => {
+                if (index < 4) {
+                    movie.classList.remove("hidden");
+                } else {
+                    movie.classList.add("hidden");
+                }
+            });
+        } else {
+            // Afficher tous les films au-delà de 1024px
+            movies.forEach((movie) => {
+                movie.classList.remove("hidden");
+            });
+        }
+
+        // Reset button text
+        if (btnToggle) {
+            btnToggle.textContent = "Voir plus";
+        }
+    });
+}
+
+// Fonction pour basculer l'affichage des films
+function toggleDisplayMovies(button) {
+    const grid = button.parentNode.previousElementSibling;
+    const movies = Array.from(grid.children);
+    const hiddenMovies = movies.filter((movie) => movie.classList.contains("hidden"));
+
+    if (hiddenMovies.length > 0) {
+        // Affiche tous les films et change le bouton en "Voir moins"
+        hiddenMovies.forEach((movie) => movie.classList.remove("hidden"));
+        button.textContent = "Voir moins";
+    } else {
+        // Rétablit l'affichage initial en utilisant adjustMovieGrid()
+        adjustMovieGrid();
+        button.textContent = "Voir plus";
+    }
+}
+
+document.querySelectorAll(".btn-see-more").forEach((button) => {
+    button.addEventListener("click", () => toggleDisplayMovies(button));
+});
+
+window.addEventListener("resize", adjustMovieGrid);
+window.addEventListener("load", function () {
+    fillSelectOptionCategory();
+    displayBestMovie();
+    displayBestMovies("", "bestMovies");
+    displayBestMovies("Thriller", "bestMoviesThriller");
+    displayBestMovies("Family", "bestMoviesFamily");
+    displayBestMovies("Action", "bestMoviesByCategoryChoice");
+});

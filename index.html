@@ -84,7 +84,7 @@
     </section>
     <!-- Template affichage d'un film -->
     <template id="movie-template">
-        <div id="movie-template-link" class="relative film cursor-pointer">
+        <div class="movie-template-link relative film cursor-pointer">
             <img class="w-full h-[320px] object-cover" src="" alt="">
             <div class="absolute top-14 left-0 w-full h-28 bg-black opacity-50"></div>
             <div class="absolute top-20 left-0 w-full h-28">
@@ -102,11 +102,11 @@
         <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8">
             Meilleurs films
         </h2>
-        <div id="bestMovies" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <div id="bestMovies" class="grid-movies grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             <!-- Best Movies will be added here -->
         </div>
         <div class="flex justify-center lg:hidden">
-            <button id="btn-see-more" class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">
+            <button class="btn-see-more bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">
                 Voir plus
             </button>
         </div>
@@ -116,11 +116,13 @@
         <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8">
             Meilleurs films Thriller
         </h2>
-        <div id="bestMoviesThriller" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <div id="bestMoviesThriller" class="grid-movies grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             <!-- Best Movies thriller will be added here -->
         </div>
-        <div id="btn-see-more" class="flex justify-center lg:hidden">
-            <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
+        <div class="flex justify-center lg:hidden">
+            <button class="btn-see-more bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">
+                Voir plus
+            </button>
         </div>
     </section>
     <!-- Section meilleurs films Famille -->
@@ -128,11 +130,13 @@
         <h2 class="text-2xl font-semibold text-center mb-2 md:text-4xl md:text-start md:mb-4 lg:text-5xl lg:mb-8">
             Meilleurs films Famille
         </h2>
-        <div id="bestMoviesFamily" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <div id="bestMoviesFamily" class="grid-movies grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             <!-- Best Movies will be added here -->
         </div>
-        <div id="btn-see-more" class="flex justify-center lg:hidden">
-            <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
+        <div class="flex justify-center lg:hidden">
+            <button class="btn-see-more bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">
+                Voir plus
+            </button>
         </div>
     </section>
     <!-- Section meilleurs films aux choix de la catégorie -->
@@ -143,11 +147,13 @@
             </h2>
             <select name="category" id="category" class="px-8 py-2 mx-3 rounded-lg border-2 border-black"></select>
         </div>
-        <div id="bestMoviesByCategoryChoice" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        <div id="bestMoviesByCategoryChoice" class="grid-movies grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
             <!-- Best Movies will be added here -->
         </div>
         <div id="btn-see-more" class="flex justify-center lg:hidden">
-            <button class="bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">Voir plus</button>
+            <button class="btn-see-more bg-red-600 rounded-full text-white font-medium px-20 py-1.5 mt-5">
+                Voir plus
+            </button>
         </div>
     </section>
     <script src="scripts/servicesApiMovies.js"></script>
