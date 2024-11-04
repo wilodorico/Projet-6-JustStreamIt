@@ -37,6 +37,7 @@ function closeModal() {
     document.getElementById("movie-modal").classList.remove("active");
 }
 
+// Gère l'événement des boutons de fermeture de la modale
 document.querySelectorAll(".modal-btn-close-up, .modal-btn-close-down").forEach((button) => {
     button.addEventListener("click", closeModal);
 });

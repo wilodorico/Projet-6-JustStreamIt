@@ -13,7 +13,7 @@ function clearSection(sectionId) {
     document.getElementById(sectionId).innerHTML = "";
 }
 
-// Fonction pour ajouter un film à une section avec son template
+// Fonction pour ajouter un film à une section en utilisant un template
 function addMovieToSection(movie, sectionId) {
     const template = document.getElementById("movie-template");
     const clone = template.content.cloneNode(true);
@@ -22,12 +22,14 @@ function addMovieToSection(movie, sectionId) {
     movieImage.src = movie.image_url;
     movieImage.alt = movie.title;
 
+    // Définit une image par défaut si l'image n'est pas disponible
     movieImage.onerror = () => (movieImage.src = defaultImageUrl);
 
     const movieTitle = clone.querySelector("h4");
     movieTitle.textContent = movie.title;
 
     const divLink = clone.querySelector(".movie-template-link");
+    // Affiche le modal de détails du film lorsqu'on clique sur l'affiche du film
     divLink.addEventListener("click", () => {
         showMovieModal(movie);
     });
@@ -64,13 +66,15 @@ function displayBestMovies(genre, sectionId) {
             movies.forEach((movie) => {
                 addMovieToSection(movie, sectionId);
             });
-            adjustMovieGrid(); // Ajuster le nombre de films visibles
+            // Ajuster le nombre de films visibles selon la taille de l'écran
+            adjustMovieGrid();
         })
         .catch((error) => {
             console.error(`Erreur lors de la récupération des films ${genre} :`, error);
         });
 }
 
+// Ajoute les genres disponibles dans la liste déroulante
 function fillSelectOptionCategory() {
     serviceApi.getGenres().then((data) => {
         data.forEach((categorie) => {
@@ -82,13 +86,14 @@ function fillSelectOptionCategory() {
     });
 }
 
+// Récupère le genre sélectionné dans la liste déroulante et affiche les meilleurs films correspondants
 selectCategory.addEventListener("change", (event) => {
     const selectedCategory = event.target.options[event.target.selectedIndex].text;
     displayBestMovies(selectedCategory, "bestMoviesByCategoryChoice");
     adjustMovieGrid();
 });
 
-// Fonction pour ajuster le nombre de films visibles sous 640px
+// Fonction pour ajuster le nombre de films visibles en fonction de la taille de l'écran
 function adjustMovieGrid() {
     const grids = document.querySelectorAll(".grid-movies");
 
@@ -121,7 +126,7 @@ function adjustMovieGrid() {
             });
         }
 
-        // Reset button text
+        // Réinitialise le texte du bouton
         if (btnToggle) {
             btnToggle.textContent = "Voir plus";
         }
@@ -139,17 +144,20 @@ function toggleDisplayMovies(button) {
         hiddenMovies.forEach((movie) => movie.classList.remove("hidden"));
         button.textContent = "Voir moins";
     } else {
-        // Rétablit l'affichage initial en utilisant adjustMovieGrid()
-        adjustMovieGrid();
+        adjustMovieGrid(); // Rétablit l'affichage initial
         button.textContent = "Voir plus";
     }
 }
 
+// Gère l'événement des boutons "Voir plus" au click
 document.querySelectorAll(".btn-see-more").forEach((button) => {
     button.addEventListener("click", () => toggleDisplayMovies(button));
 });
 
+// Gère l'événement de redimensionnement de l'écran
 window.addEventListener("resize", adjustMovieGrid);
+
+// Gère l'événement de chargement de la page
 window.addEventListener("load", function () {
     fillSelectOptionCategory();
     displayBestMovie();
