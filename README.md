@@ -1,5 +1,5 @@
 <div align="center">
-<img src="medias/logo-juststreamit.png" alt="logo juststreamit" width="250"/>
+<h1>JustStreamIt</h1>
 </div> 
 
 
